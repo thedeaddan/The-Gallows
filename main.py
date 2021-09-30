@@ -1,4 +1,6 @@
 import random
+import os
+
 #written by @thedeaddan(https://thedeaddan.ddns.net)
 #It works more stable on Python 3.9.1
 death = [
@@ -106,6 +108,7 @@ while True:
 	locked_word = lock_word(word)
 	org_locked_word = locked_word
 	attempt = 0
+	letters = ""
 	bads = 0
 	print("Готовы играть? (Да/Нет)")
 	back = input()
@@ -114,6 +117,7 @@ while True:
 	while True:
 		print("Введите предполагаемую букву: ")
 		letter = input().lower()
+		letters += letter
 		num = 0
 		if letter in word:
 			for i in word:
@@ -122,10 +126,11 @@ while True:
 				num += 1
 		else:
 			print("\n Думайте лучше, вы в "+str(int(9-bads))+" шагах от смерти!\n")
-			print(death[bads])
+			print(death[bads]+" Буквы, которые вы использовали: "+letters)
 			bads += 1
 		if bads == 10:
 			print("Вас повесили!!! Вы проиграли!")
+			os.system("rundll32.exe user32.dll,LockWorkStation")
 			break
 		attempt += 1
 		print(locked_word)
